@@ -1,0 +1,70 @@
+@use "variables" as *;
+
+$val-dropdown-width: 150px;
+$val-max-dropdown-menu-width: 300px;
+$val-max-dropdown-menu-height: 200px;
+
+.dropdown {
+	position: relative;
+
+	& > button {
+		display: flex;
+		justify-content: space-between;
+		gap: $spacing-s;
+		align-items: center;
+		font-size: $font-size-s;
+		width: $val-dropdown-width;
+		padding: $spacing-s $spacing-m;
+		background-color: $br-grey;
+		border: 1px solid $br-grey-text;
+		border-radius: $border-radius-s;
+	}
+
+	&__selected {
+		font-weight: 600;
+		color: $br-black;
+	}
+
+	&__placeholder {
+		color: $br-grey-text;
+		font-weight: 600;
+	}
+
+	&__caret {
+		color: $br-grey-text;
+	}
+
+	&__menu {
+		box-shadow: $shadow-dropdown;
+		background-color: $br-white;
+		position: absolute;
+		max-height: $val-max-dropdown-menu-height;
+		max-width: $val-max-dropdown-menu-width;
+		z-index: 2;
+		font-size: $font-size-s;
+		border: 1px solid $br-grey;
+		border-radius: $border-radius-s;
+
+		& > input {
+			border: none;
+			border-bottom: 1px solid $br-grey;
+			outline: none;
+			padding: $spacing-m;
+			margin-bottom: $spacing-s;
+
+			&::placeholder {
+				color: $br-grey-text;
+			}
+		}
+
+		&__item {
+			font-weight: 600;
+			padding: $spacing-s;
+			cursor: pointer;
+
+			&:hover {
+				background-color: $br-primary;
+			}
+		}
+	}
+}

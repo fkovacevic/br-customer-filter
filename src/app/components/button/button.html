@@ -1,0 +1,7 @@
+<button class="btn btn--{{ type }}" (click)="onClick.emit()">
+	@if (type === "icon") {
+		<ng-icon [name]="iconName" />
+	} @else {
+		{{ label }}
+	}
+</button>

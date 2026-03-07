@@ -1,0 +1,27 @@
+<div class="dropdown">
+<button (click)="toggle()">
+  @if (value) {
+    <div class="dropdown__selected">{{ value }}</div>
+  } @else {
+    <div class="dropdown__placeholder">{{ placeholder }}</div>
+  }
+  <ng-icon name="heroChevronDown" class="dropdown__caret" />
+</button>
+
+	@if (isOpen()) {
+		<div class="dropdown__menu">
+			@if (searchable) {
+				<input
+					placeholder="Filter..."
+					[ngModel]="searchQuery()"
+					(ngModelChange)="searchQuery.set($event)"
+				/>
+			}
+			@for (option of filteredOptions(); track option) {
+				<div (click)="select(option)" class="dropdown__menu__item">
+					{{ option }}
+				</div>
+			}
+		</div>
+	}
+</div>
