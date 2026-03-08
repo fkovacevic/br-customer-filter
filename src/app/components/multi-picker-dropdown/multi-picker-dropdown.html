@@ -1,32 +1,35 @@
-<div class="picker">
-	<button (click)="toggle()">
-		{{ selectedOption ?? activeGroup?.label ?? "Select..." }}
-	</button>
+<div class="picker" (focusout)="onBlur($event)">
+  <button (click)="toggle()">
+    {{ selectedOption ?? 'Select...' }}
+    <ng-icon name="heroChevronDown" class="dropdown__caret" />
+  </button>
 
-	@if (isOpen()) {
-		<div class="picker__menu">
-			<div class="picker__tabs">
-				@for (group of groups; track group.id) {
-					<button
-						(click)="selectGroup(group.id)"
-						[class.active]="group.id === selectedGroupId"
-					>
-						{{ group.icon }} {{ group.label }}
-					</button>
-				}
-			</div>
+  @if (isOpen()) {
+    <div class="picker__menu">
+      <div class="picker__menu__tabs">
+        @for (group of groups; track group.id) {
+          <button (click)="selectGroup(group.id)" [class.active]="group.id === selectedGroupId">
+            <span class="picker__menu__tabs__icon">
+              {{ group.icon }}
+            </span>
+            <span class="picker__menu__tabs__label">
+              {{ group.label }}
+            </span>
+          </button>
+        }
+      </div>
 
-			<div class="picker__options">
-				@for (option of activeGroup?.options ?? []; track option.id) {
-          <div
-            class="picker__item"
+      <div class="picker__menu__options">
+        @for (option of activeGroup?.options ?? []; track option.id) {
+          <button
+            class="picker__menu__options__item"
             [class.selected]="option.id === selectedOption"
             (click)="selectOption(option)"
           >
             {{ option.label }}
-          </div>
+          </button>
         }
-			</div>
-		</div>
-	}
+      </div>
+    </div>
+  }
 </div>

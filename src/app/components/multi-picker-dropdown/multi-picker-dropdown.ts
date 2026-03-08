@@ -1,5 +1,6 @@
-import { Component, Input, Output, EventEmitter, signal, computed } from "@angular/core";
+import { Component, Input, Output, EventEmitter, signal, ElementRef, inject } from "@angular/core";
 import { CommonModule } from "@angular/common";
+import { NgIcon } from "@ng-icons/core";
 
 export type PickerOption = {
   id: string;
@@ -16,7 +17,7 @@ export type PickerGroup = {
 @Component({
   selector: "app-multi-picker-dropdown",
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, NgIcon],
   templateUrl: "./multi-picker-dropdown.html",
   styleUrl: "./multi-picker-dropdown.scss",
 })
@@ -26,19 +27,34 @@ export class MultiPickerDropdown {
   @Output() selectedGroupIdChange = new EventEmitter<string | null>();
   @Input() selectedOption: string | null = null;
   @Output() selectedOptionChange = new EventEmitter<string | null>();
+
+  private elementRef = inject(ElementRef);
+
   isOpen = signal(false);
+
+
+  get activeGroup(): PickerGroup | undefined {
+    return this.groups.find((g) => g.id === this.selectedGroupId);
+  }
+
   toggle() {
     this.isOpen.update((v) => !v);
   }
+
   selectGroup(id: string) {
     this.selectedGroupIdChange.emit(id);
     this.selectedOptionChange.emit(null);
   }
+
   selectOption(option: PickerOption) {
     this.selectedOptionChange.emit(option.id);
     this.isOpen.set(false);
   }
-  get activeGroup(): PickerGroup | undefined {
-    return this.groups.find((g) => g.id === this.selectedGroupId);
+
+  onBlur(event: FocusEvent) {
+    if (this.elementRef.nativeElement.contains(event.relatedTarget as Node)) {
+      return;
+    }
+    this.isOpen.set(false);
   }
 }

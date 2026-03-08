@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, computed, EventEmitter, Input, Output, signal } from "@angular/core";
+import { Component, computed, ElementRef, EventEmitter, inject, Input, Output, signal } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { NgIconComponent, provideIcons } from "@ng-icons/core";
 import { heroChevronDown } from "@ng-icons/heroicons/outline";
@@ -16,7 +16,10 @@ export class Dropdown {
   @Input() options: string[] = [];
   @Input() searchable = false;
   @Input() value: string | null = null;
+  @Input() prefix: string | null = null;
   @Output() onSelect = new EventEmitter<string>();
+
+  private elementRef = inject(ElementRef);
 
   isOpen = signal(false);
   searchQuery = signal("");
@@ -35,5 +38,14 @@ export class Dropdown {
     this.isOpen.set(false);
     this.searchQuery.set("");
     this.onSelect.emit(option);
+  }
+
+  onBlur(event: FocusEvent) {
+    if (
+      this.elementRef.nativeElement.contains(event.relatedTarget as Node)
+    ) {
+      return;
+    }
+    this.isOpen.set(false);
   }
 }

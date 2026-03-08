@@ -9,5 +9,6 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class InputComponent {
   @Input() value: string | number = '';
   @Input() type: 'text' | 'number' = 'text';
+  @Input() placeholder: string = '';
   @Output() onValueChange = new EventEmitter<string>();
 }

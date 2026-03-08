@@ -1,70 +1,96 @@
-@use "variables" as *;
+@use 'variables' as *;
 
 $val-dropdown-width: 150px;
 $val-max-dropdown-menu-width: 300px;
 $val-max-dropdown-menu-height: 200px;
 
 .dropdown {
-	position: relative;
+  position: relative;
 
-	& > button {
-		display: flex;
-		justify-content: space-between;
-		gap: $spacing-s;
-		align-items: center;
-		font-size: $font-size-s;
-		width: $val-dropdown-width;
-		padding: $spacing-s $spacing-m;
-		background-color: $br-grey;
-		border: 1px solid $br-grey-text;
-		border-radius: $border-radius-s;
-	}
+  & > button {
+    display: flex;
+    cursor: pointer;
+    justify-content: space-between;
+    gap: $spacing-s;
+    align-items: center;
+    font-size: $font-size-s;
+    width: $val-dropdown-width;
+    padding: $spacing-s $spacing-m;
+    background-color: $br-grey;
+    border: 1px solid $br-grey-text;
+    border-radius: $border-radius-s;
 
-	&__selected {
-		font-weight: 600;
-		color: $br-black;
-	}
+    &:hover {
+      font-weight: bold;
+    }
+  }
 
-	&__placeholder {
-		color: $br-grey-text;
-		font-weight: 600;
-	}
+  &__selected {
+    font-weight: 600;
+    color: $br-black;
+  }
 
-	&__caret {
-		color: $br-grey-text;
-	}
+  &__placeholder {
+    color: $br-grey-text;
+    font-weight: 600;
+  }
 
-	&__menu {
-		box-shadow: $shadow-dropdown;
-		background-color: $br-white;
-		position: absolute;
-		max-height: $val-max-dropdown-menu-height;
-		max-width: $val-max-dropdown-menu-width;
-		z-index: 2;
-		font-size: $font-size-s;
-		border: 1px solid $br-grey;
-		border-radius: $border-radius-s;
+  &__caret {
+    color: $br-grey-text;
+  }
 
-		& > input {
-			border: none;
-			border-bottom: 1px solid $br-grey;
-			outline: none;
-			padding: $spacing-m;
-			margin-bottom: $spacing-s;
+  &__menu {
+    display: flex;
+    flex-direction: column;
+    box-shadow: $shadow-dropdown;
+    background-color: $br-white;
+    position: absolute;
+    max-height: $val-max-dropdown-menu-height;
+    width: $val-max-dropdown-menu-width;
+    z-index: 2;
+    font-size: $font-size-s;
+    border: 1px solid $br-grey;
+    border-radius: $border-radius-s;
+    overflow: auto;
 
-			&::placeholder {
-				color: $br-grey-text;
-			}
-		}
+    &__search {
+      display: flex;
+      align-items: center;
+      padding: 0 $spacing-m;
+      border-bottom: 1px solid $br-grey-mid;
 
-		&__item {
-			font-weight: 600;
-			padding: $spacing-s;
-			cursor: pointer;
+      &__prefix {
+        padding: $spacing-s;
+        font-size: $font-size-xs;
+        background-color: $br-grey-mid;
+        color: $br-grey-text;
+        font-weight: bold;
+        height: $spacing-l;
+      }
 
-			&:hover {
-				background-color: $br-primary;
-			}
-		}
-	}
+      & > input {
+        border: none;
+        outline: none;
+        padding: $spacing-m;
+        margin-bottom: $spacing-s;
+
+        &::placeholder {
+          color: $br-grey-text;
+        }
+      }
+    }
+
+    &__item {
+      font-weight: 600;
+      padding: $spacing-s;
+      cursor: pointer;
+      background-color: $br-white;
+      border: none;
+      text-align: left;
+
+      &:hover {
+        background-color: $br-primary;
+      }
+    }
+  }
 }

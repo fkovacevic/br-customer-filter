@@ -1,0 +1,101 @@
+@use 'variables' as *;
+
+$val-dropdown-width: 150px;
+$val-min-dropdown-menu-width: 250px;
+$val-max-dropdown-menu-height: 200px;
+$val-group-button-width: 80px;
+
+.picker {
+  position: relative;
+
+  & > button {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    gap: $spacing-s;
+    align-items: center;
+    font-size: $font-size-s;
+    font-weight: bold;
+    width: $val-dropdown-width;
+    padding: $spacing-s $spacing-m;
+    background-color: $br-grey;
+    border: 1px solid $br-grey-text;
+    border-radius: $border-radius-s;
+  }
+
+  &__menu {
+    display: flex;
+    flex-direction: column;
+    box-shadow: $shadow-dropdown;
+    background-color: $br-white;
+    position: absolute;
+    max-height: $val-max-dropdown-menu-height;
+    min-width: $val-min-dropdown-menu-width;
+    z-index: 2;
+    font-size: $font-size-s;
+    border: 1px solid $br-grey;
+    border-radius: $border-radius-s;
+    overflow: auto;
+
+    &__tabs {
+      display: flex;
+      justify-content: center;
+      gap: $spacing-m;
+      padding: $spacing-s;
+
+      & > button {
+        background-color: $br-white;
+        width: $val-group-button-width;
+        border: none;
+        display: flex;
+        flex-direction: column;
+        cursor: pointer;
+        gap: $spacing-s;
+        padding-bottom: $spacing-m;
+
+        &:hover {
+          > span {
+            color: $br-black;
+          }
+        }
+        &.active {
+          > span {
+            color: $br-black;
+          }
+          border-bottom: 2px solid $br-primary;
+        }
+      }
+
+      &__icon {
+        font-size: $font-size-xl;
+        font-style: italic;
+        font-weight: bold;
+        color: $br-grey-text;
+      }
+
+      &__label {
+        font-weight: bold;
+        color: $br-grey-text;
+        text-transform: uppercase;
+        font-size: $font-size-s;
+      }
+    }
+
+    &__options {
+      display: flex;
+      flex-direction: column;
+
+      &__item {
+        padding: $spacing-s;
+        cursor: pointer;
+        background-color: $br-white;
+        border: none;
+        text-align: left;
+
+        &:hover {
+          background-color: $br-primary;
+        }
+      }
+    }
+  }
+}

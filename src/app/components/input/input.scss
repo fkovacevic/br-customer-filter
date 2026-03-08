@@ -1,0 +1,17 @@
+@use 'variables' as *;
+
+.input {
+  font-size: $font-size-s;
+  padding: $spacing-s $spacing-m;
+  border: 1px solid $br-grey-text;
+  border-radius: $border-radius-s;
+
+  &:focus {
+    border: 1px solid $br-primary;
+    outline: none;
+  }
+
+  &::placeholder {
+    color: $br-grey-text;
+  }
+}

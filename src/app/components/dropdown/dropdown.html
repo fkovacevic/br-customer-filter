@@ -1,27 +1,32 @@
-<div class="dropdown">
-<button (click)="toggle()">
-  @if (value) {
-    <div class="dropdown__selected">{{ value }}</div>
-  } @else {
-    <div class="dropdown__placeholder">{{ placeholder }}</div>
-  }
-  <ng-icon name="heroChevronDown" class="dropdown__caret" />
-</button>
+<div class="dropdown" (focusout)="onBlur($event)">
+  <button (click)="toggle()">
+    @if (value) {
+      <div class="dropdown__selected">{{ value }}</div>
+    } @else {
+      <div class="dropdown__placeholder">{{ placeholder }}</div>
+    }
+    <ng-icon name="heroChevronDown" class="dropdown__caret" />
+  </button>
 
-	@if (isOpen()) {
-		<div class="dropdown__menu">
-			@if (searchable) {
-				<input
-					placeholder="Filter..."
-					[ngModel]="searchQuery()"
-					(ngModelChange)="searchQuery.set($event)"
-				/>
-			}
-			@for (option of filteredOptions(); track option) {
-				<div (click)="select(option)" class="dropdown__menu__item">
-					{{ option }}
-				</div>
-			}
-		</div>
-	}
+  @if (isOpen()) {
+    <div class="dropdown__menu">
+      <div class="dropdown__menu__search">
+        @if (searchable) {
+          @if (prefix) {
+            <span class="dropdown__menu__search__prefix">{{ prefix }}</span>
+          }
+          <input
+            placeholder="Filter..."
+            [ngModel]="searchQuery()"
+            (ngModelChange)="searchQuery.set($event)"
+          />
+        }
+      </div>
+      @for (option of filteredOptions(); track option) {
+        <button (click)="select(option)" class="dropdown__menu__item">
+          {{ option }}
+        </button>
+      }
+    </div>
+  }
 </div>

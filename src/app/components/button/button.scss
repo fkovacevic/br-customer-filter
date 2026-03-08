@@ -1,10 +1,33 @@
+@use 'variables' as *;
+
 .btn {
-	&--primary {
-	}
-	&--secondary {
-	}
-	&--danger {
-	}
-	&--icon {
-	}
+  border: none;
+  font-size: $font-size-s;
+  cursor: pointer;
+
+  &--primary {
+    background-color: $br-primary;
+    font-weight: bold;
+    padding: $spacing-m;
+  }
+  &--secondary {
+    color: $br-secondary;
+    background: none;
+    font-weight: bold;
+  }
+  &--danger {
+    color: $br-danger;
+    font-weight: bold;
+    background: none;
+  }
+
+  &--icon {
+    background-color: $br-white;
+    color: $br-grey-text;
+    font-size: $font-size-l;
+
+    &:hover {
+      color: $br-black;
+    }
+  }
 }
