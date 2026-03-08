@@ -7,3 +7,4 @@ export type AppEvent = {
   type: string;
   properties: EventProperty[];
 };
+

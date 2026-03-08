@@ -1,6 +1,4 @@
 import { bootstrapApplication } from "@angular/platform-browser";
-import { appConfig } from "./app/app.config";
-import { App } from "./app/app";
 import { provideIcons } from "@ng-icons/core";
 import {
   heroDocumentDuplicate,
@@ -10,6 +8,9 @@ import {
   heroXMark,
 } from "@ng-icons/heroicons/outline";
 import { mergeApplicationConfig } from "@angular/core";
+
+import { appConfig } from "./app/app.config";
+import { App } from "./app/app";
 
 bootstrapApplication(
   App,
