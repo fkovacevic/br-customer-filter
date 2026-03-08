@@ -2,17 +2,60 @@
 
 .funnel-step {
   display: grid;
-  grid-template-columns: 1fr 5fr 1fr;
+  position: relative;
+  grid-template-columns: 150px 6fr 1fr;
+  gap: $spacing-l;
+  background-color: $br-white;
+  padding: $spacing-xl $spacing-l;
 
-  &__events {
+  &__event {
+    font-size: $font-size-s;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-m;
+
+    &__name {
+      display: flex;
+      gap: $spacing-s;
+      height: $spacing-l;
+      align-items: center;
+    }
+  }
+
+  &__attributes {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding-top: calc($spacing-l + $spacing-m); // gap + name height
+    gap: $spacing-m;
 
     &__add-event-button {
       & > button {
         font-size: $font-size-s;
       }
     }
+  }
+
+  &__icons {
+    visibility: hidden;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &:hover {
+    .funnel-step__icons {
+      visibility: visible;
+    }
+  }
+
+  // border-bottom
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 2 * $spacing-l);
+    border-bottom: 1px solid $br-grey-mid;
   }
 }

@@ -9,7 +9,7 @@
     <app-multi-picker-dropdown
       [groups]="comparatorGroups"
       [selectedGroupId]="selectedGroupId()"
-      [selectedOption]="attribute.comparator"
+      [selectedOption]="comparatorLabel"
       (selectedGroupIdChange)="selectedGroupId.set($event)"
       (selectedOptionChange)="onComparatorChange($event)"
     />

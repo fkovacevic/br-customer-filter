@@ -12,13 +12,13 @@ const COMPARATOR_GROUPS = [
   {
     id: 'string',
     label: 'Text',
-    icon: '🔤',
+    icon: 'T',
     options: Object.entries(StringComparatorLabel).map(([id, label]) => ({ id: id as StringComparator, label }))
   },
   {
     id: 'number',
     label: 'Number',
-    icon: '🔢',
+    icon: '#',
     options: Object.entries(NumberOperatorLabel).map(([id, label]) => ({ id: id as NumberOperator, label }))
   }
 ]
@@ -148,5 +148,18 @@ export class EventAttributeComponent {
 
   deleteEventAttribute(): void {
     this.store.deleteEventAttribute(this.funnelStepId, this.attribute.id);
+  }
+
+  get comparatorLabel(): string | null {
+    if (!this.attribute.property) {
+      return null;
+    }
+
+    const comparator = this.attribute.comparator;
+    if (isComparatorText(comparator)) {
+      return StringComparatorLabel[comparator];
+    }
+
+    return NumberOperatorLabel[comparator];
   }
 }
