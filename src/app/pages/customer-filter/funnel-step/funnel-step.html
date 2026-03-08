@@ -1,0 +1,35 @@
+<div class="funnel-step">
+  <div>
+    <div>
+      Step {{ index + 1 }}: {{ step.event ?? 'Unnamed step' }}
+      <ng-icon name="heroPencil" />
+    </div>
+    <app-dropdown
+      placeholder="Select event..."
+      [options]="eventTypeOptions"
+      [value]="step.event"
+      (onSelect)="onEventTypeChange($event)"
+    />
+  </div>
+  <div class="funnel-step__events">
+    @if (step.event) {
+      @for (attribute of step.attributes; track attribute.id) {
+        <app-event-attribute
+          [attribute]="attribute"
+          [funnelStepId]="step.id"
+          [properties]="selectedEventProperties"
+        />
+      }
+      <app-button
+        type="secondary"
+        label="+ Add an event attribute"
+        (onClick)="addEventAttribute(step.id)"
+        class="funnel-step__events__add-event-button"
+      />
+    }
+  </div>
+  <div>
+    <app-button type="icon" (onClick)="copyFunnelStep()" iconName="heroDocumentDuplicate" />
+    <app-button type="icon" (onClick)="deleteFunnelStep()" iconName="heroTrash" />
+  </div>
+</div>

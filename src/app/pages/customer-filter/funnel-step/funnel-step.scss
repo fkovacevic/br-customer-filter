@@ -1,0 +1,18 @@
+@use 'variables' as *;
+
+.funnel-step {
+  display: grid;
+  grid-template-columns: 1fr 5fr 1fr;
+
+  &__events {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    &__add-event-button {
+      & > button {
+        font-size: $font-size-s;
+      }
+    }
+  }
+}
