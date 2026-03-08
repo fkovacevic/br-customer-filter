@@ -1,0 +1,9 @@
+@use 'variables' as *;
+
+.customer-filter {
+  display: flex;
+  flex-direction: column;
+  background-color: $br-grey;
+  padding: $spacing-l;
+  box-shadow: $shadow-dropdown;
+}

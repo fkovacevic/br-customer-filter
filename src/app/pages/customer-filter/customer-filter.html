@@ -1,0 +1,8 @@
+<div class="customer-filter">
+  <app-header (resetFunnelSteps)="resetFunnelSteps()" />
+  @for (step of store.funnelSteps(); track step.id; let i = $index) {
+    <app-funnel-step [step]="step" [eventTypes]="events()" [index]="i" />
+  }
+  <app-button type="secondary" label="+ ADD FUNNEL STEP" (onClick)="addFunnelStep()" />
+  <app-button type="primary" label="Apply Filters" (onClick)="apply()" />
+</div>
