@@ -4,4 +4,23 @@
   display: flex;
   gap: $spacing-m;
   align-items: center;
+  font-size: $font-size-s;
+
+  &__and {
+    position: absolute;
+    left: -40px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: $font-size-s;
+    color: $br-grey-text;
+  }
+
+  & > app-button {
+    visibility: hidden;
+  }
+  &:hover {
+    app-button {
+      visibility: visible;
+    }
+  }
 }

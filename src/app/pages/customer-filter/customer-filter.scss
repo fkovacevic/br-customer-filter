@@ -1,9 +1,20 @@
 @use 'variables' as *;
 
+.customer-filter-container {
+  padding: $spacing-l;
+}
 .customer-filter {
   display: flex;
   flex-direction: column;
   background-color: $br-grey;
   padding: $spacing-l;
   box-shadow: $shadow-dropdown;
+
+  &__add-button-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: $spacing-l;
+    background-color: $br-white;
+  }
 }

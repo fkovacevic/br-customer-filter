@@ -1,6 +1,15 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+
 import { InputComponent } from '../../../../../components/input/input';
-import { EventAttributeString, EventAttributeNumber, EventAttributeRange, isAttributeRange, isAttributeNumber, isAttributeText } from '../../../../../models/formModels/funnelStep.formModel';
+
+import {
+  EventAttributeString,
+  EventAttributeNumber,
+  EventAttributeRange,
+  isAttributeRange,
+  isAttributeNumber,
+  isAttributeText
+} from '../../../../../models/formModels/funnelStep.formModel';
 
 @Component({
   selector: 'app-attribute-value-input',

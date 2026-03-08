@@ -1,11 +1,12 @@
 import { Component, inject, Input } from '@angular/core';
+import { NgIcon } from '@ng-icons/core';
+
 import { Button } from '../../../components/button/button';
 import { Dropdown } from '../../../components/dropdown/dropdown';
 import { FunnelStep } from '../../../models/formModels/funnelStep.formModel';
 import { AppEvent, EventProperty } from '../../../models/viewModels/appEvent.viewModel';
 import { CustomerFilterStore } from '../customer-filter.store';
 import { EventAttributeComponent } from './event-attribute/event-attribute';
-import { NgIcon } from '@ng-icons/core';
 
 @Component({
   selector: 'app-funnel-step',
@@ -17,6 +18,7 @@ export class FunnelStepComponent {
   @Input() step!: FunnelStep;
   @Input() eventTypes: AppEvent[] = [];
   @Input() index!: number;
+
   private store = inject(CustomerFilterStore);
 
   get eventTypeOptions(): string[] {
@@ -29,7 +31,7 @@ export class FunnelStepComponent {
   }
 
   onEventTypeChange(value: string): void {
-    this.store.editFunnelStep(this.step.id, { event: value, attributes: [] });
+    this.store.editFunnelStep(this.step.id, { id: this.step.id, event: value, attributes: [] });
   }
 
   addEventAttribute(funnelStepId: string): void {

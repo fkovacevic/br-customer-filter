@@ -8,19 +8,22 @@
       <ng-icon name="heroPencil" />
     </div>
     <app-dropdown
-      placeholder="Select event..."
+      placeholder="Select an event"
       [options]="eventTypeOptions"
+      [searchable]="true"
       [value]="step.event"
       (onSelect)="onEventTypeChange($event)"
     />
   </div>
   <div class="funnel-step__attributes">
     @if (step.event) {
-      @for (attribute of step.attributes; track attribute.id) {
+      @for (attribute of step.attributes; track attribute.id; let i = $index) {
         <app-event-attribute
           [attribute]="attribute"
           [funnelStepId]="step.id"
           [properties]="selectedEventProperties"
+          [isFirst]="i === 0"
+          [eventType]="step.event"
         />
       }
       <app-button

@@ -1,8 +1,18 @@
-<div class="customer-filter">
-  <app-header (resetFunnelSteps)="resetFunnelSteps()" />
-  @for (step of store.funnelSteps(); track step.id; let i = $index) {
-    <app-funnel-step [step]="step" [eventTypes]="events()" [index]="i" />
-  }
-  <app-button type="secondary" label="+ ADD FUNNEL STEP" (onClick)="addFunnelStep()" />
-  <app-button type="primary" label="Apply Filters" (onClick)="apply()" />
+<div class="customer-filter-container">
+  <div class="customer-filter">
+    <app-header (resetFunnelSteps)="resetFunnelSteps()" />
+    @if (loading()) {
+      Loading...
+    } @else if (error()) {
+      <app-error [message]="error()!" />
+    } @else {
+      @for (step of store.funnelSteps(); track step.id; let i = $index) {
+        <app-funnel-step [step]="step" [eventTypes]="events()" [index]="i" />
+      }
+      <div class="customer-filter__add-button-container">
+        <app-button type="secondary" label="+ ADD FUNNEL STEP" (onClick)="addFunnelStep()" />
+      </div>
+      <app-footer (onApply)="apply()" />
+    }
+  </div>
 </div>

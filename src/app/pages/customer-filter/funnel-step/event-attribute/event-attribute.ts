@@ -1,12 +1,27 @@
 import { Component, inject, Input, signal } from '@angular/core';
-import { AttributeValueInputComponent } from './attribute-value-input/attribute-value-input';
+
 import { Dropdown } from '../../../../components/dropdown/dropdown';
 import { MultiPickerDropdown } from '../../../../components/multi-picker-dropdown/multi-picker-dropdown';
-import { StringComparatorLabel, StringComparator, NumberOperatorLabel, NumberOperator, EventAttribute, isComparatorRange, isComparatorNumber, isComparatorText, isAttributeRange, isAttributeNumber, isAttributeText } from '../../../../models/formModels/funnelStep.formModel';
-import { EventProperty } from '../../../../models/viewModels/appEvent.viewModel';
-import { CustomerFilterStore } from '../../customer-filter.store';
 import { Button } from '../../../../components/button/button';
 
+import {
+  StringComparatorLabel,
+  StringComparator,
+  NumberOperatorLabel,
+  NumberOperator,
+  EventAttribute,
+  isComparatorRange,
+  isComparatorNumber,
+  isComparatorText,
+  isAttributeRange,
+  isAttributeNumber,
+  isAttributeText
+} from '../../../../models/formModels/funnelStep.formModel';
+import { EventProperty } from '../../../../models/viewModels/appEvent.viewModel';
+
+import { CustomerFilterStore } from '../../customer-filter.store';
+
+import { AttributeValueInputComponent } from './attribute-value-input/attribute-value-input';
 
 const COMPARATOR_GROUPS = [
   {
@@ -33,16 +48,41 @@ const COMPARATOR_GROUPS = [
 export class EventAttributeComponent {
   @Input() attribute!: EventAttribute;
   @Input() funnelStepId!: string;
+  @Input() eventType!: string;
   @Input() properties: EventProperty[] = [];
+  @Input() isFirst: boolean = false;
+
   selectedGroupId = signal<string | null>(null);
 
   private store = inject(CustomerFilterStore);
 
   readonly comparatorGroups = COMPARATOR_GROUPS;
 
-  // onValueChange(value: string): void {
-  //   this.store.editEventAttribute(this.funnelStepId, this.attribute.id, { ...this.attribute, value });
-  // }
+  ngOnInit(): void {
+    if (!this.attribute.property) return;
+    if (isComparatorText(this.attribute.comparator)) {
+      this.selectedGroupId.set(COMPARATOR_GROUPS[0].id);
+    } else {
+      this.selectedGroupId.set(COMPARATOR_GROUPS[1].id);
+    }
+  }
+
+  get propertyOptions(): string[] {
+    return this.properties.map(p => p.property);
+  }
+
+  get comparatorLabel(): string | null {
+    if (!this.attribute.property) {
+      return null;
+    }
+
+    const comparator = this.attribute.comparator;
+    if (isComparatorText(comparator)) {
+      return StringComparatorLabel[comparator];
+    }
+
+    return NumberOperatorLabel[comparator];
+  }
 
   onPropertyChange(value: string): void {
     const selectedProperty = this.properties.find((_option) => _option.property === value);
@@ -75,11 +115,6 @@ export class EventAttributeComponent {
 
     this.store.editEventAttribute(this.funnelStepId, this.attribute.id, newEventAttribute);
   }
-
-  get propertyOptions(): string[] {
-    return this.properties.map(p => p.property);
-  }
-
 
   onComparatorChange(value: string | null): void {
     if (!value) return;
@@ -148,18 +183,5 @@ export class EventAttributeComponent {
 
   deleteEventAttribute(): void {
     this.store.deleteEventAttribute(this.funnelStepId, this.attribute.id);
-  }
-
-  get comparatorLabel(): string | null {
-    if (!this.attribute.property) {
-      return null;
-    }
-
-    const comparator = this.attribute.comparator;
-    if (isComparatorText(comparator)) {
-      return StringComparatorLabel[comparator];
-    }
-
-    return NumberOperatorLabel[comparator];
   }
 }

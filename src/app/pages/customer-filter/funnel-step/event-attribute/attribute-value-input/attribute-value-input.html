@@ -1,9 +1,18 @@
 @if (isRangeAttribute(attribute)) {
-  <app-input type="number" [value]="attribute.value[0]" (onValueChange)="onRangeFromChange($event)" />
-  and
+  <app-input
+    type="number"
+    [value]="attribute.value[0]"
+    (onValueChange)="onRangeFromChange($event)"
+  />
+  <span class="range-and"> and </span>
   <app-input type="number" [value]="attribute.value[1]" (onValueChange)="onRangeToChange($event)" />
 } @else if (isNumberAttribute(attribute)) {
   <app-input type="number" [value]="attribute.value" (onValueChange)="onNumberChange($event)" />
 } @else if (isTextAttribute(attribute)) {
-  <app-input type="text" [value]="attribute.value" (onValueChange)="onTextChange($event)" />
+  <app-input
+    type="text"
+    [value]="attribute.value"
+    (onValueChange)="onTextChange($event)"
+    placeholder="Select a value"
+  />
 }

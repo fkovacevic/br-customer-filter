@@ -1,9 +1,14 @@
+@if (!isFirst) {
+  <span class="event-attribute__and">AND</span>
+}
 <div class="event-attribute">
   <app-dropdown
-    placeholder="Select property..."
+    placeholder="Select an attribute"
     [options]="propertyOptions"
     [value]="attribute.property"
     (onSelect)="onPropertyChange($event)"
+    [prefix]="eventType"
+    [searchable]="true"
   />
   @if (attribute.property) {
     <app-multi-picker-dropdown
@@ -14,6 +19,6 @@
       (selectedOptionChange)="onComparatorChange($event)"
     />
     <app-attribute-value-input [attribute]="attribute" (onValueChange)="onValueChange($event)" />
-    <app-button iconName="heroXMark" (onClick)="deleteEventAttribute()" type="icon" />
   }
+  <app-button iconName="heroXMark" (onClick)="deleteEventAttribute()" type="icon" />
 </div>

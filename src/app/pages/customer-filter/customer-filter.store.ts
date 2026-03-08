@@ -1,10 +1,12 @@
 import { Injectable, signal } from '@angular/core';
+
 import { EventAttribute, FunnelStep } from '../../models/formModels/funnelStep.formModel';
 
 @Injectable({ providedIn: 'root' })
 export class CustomerFilterStore {
   funnelSteps = signal<FunnelStep[]>([{ id: crypto.randomUUID(), event: null, attributes: [] }]);
 
+  // #region Funnel Step Methods
   addFunnelStep(): void {
     this.funnelSteps.update((steps) => [...steps, {
       id: crypto.randomUUID(),
@@ -13,10 +15,9 @@ export class CustomerFilterStore {
     }]);
   }
 
-  // FILIP: makni partial
-  editFunnelStep(funnelStepId: string, changes: Partial<FunnelStep>): void {
+  editFunnelStep(funnelStepId: string, newFunnelStep: FunnelStep): void {
     this.funnelSteps.update((steps) =>
-      steps.map((step) => (step.id === funnelStepId ? { ...step, ...changes } : step)),
+      steps.map((step) => (step.id === funnelStepId ? newFunnelStep : step)),
     );
   }
 
@@ -42,9 +43,11 @@ export class CustomerFilterStore {
   }
 
   resetFunnelSteps(): void {
-    this.funnelSteps.set([]);
+    this.funnelSteps.set([{ id: crypto.randomUUID(), event: null, attributes: [] }]);
   }
+  // #endregion
 
+  // #region Event Attribute Methods
   addEventAttribute(funnelStepId: string): void {
     this.funnelSteps.update((steps) =>
       steps.map((_step) => {
@@ -104,4 +107,6 @@ export class CustomerFilterStore {
       }),
     );
   }
+
+  // #endregion
 }

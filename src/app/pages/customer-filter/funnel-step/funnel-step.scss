@@ -24,14 +24,83 @@
 
   &__attributes {
     display: flex;
+    position: relative;
     flex-direction: column;
     justify-content: center;
     padding-top: calc($spacing-l + $spacing-m); // gap + name height
-    gap: $spacing-m;
 
     &__add-event-button {
       & > button {
         font-size: $font-size-s;
+      }
+    }
+
+    &__and {
+      font-size: $font-size-s;
+      color: $br-grey-text;
+      position: absolute;
+      left: -40px;
+      top: 60px;
+    }
+
+    &__row {
+      position: relative;
+    }
+
+    app-event-attribute {
+      padding-top: $spacing-m;
+      position: relative;
+
+      &:first-child {
+        padding-top: 0;
+      }
+
+      // horizontal connector for all elements
+      &::before {
+        content: '';
+        position: absolute;
+        left: -10px;
+        top: 50%;
+        width: 10px;
+        height: 1px;
+        background-color: $br-grey-text;
+      }
+
+      // hide horizontal for single attribute
+      &:only-child::before {
+        display: none;
+      }
+
+      // first child with siblings - half vertical going down
+      &:first-child:not(:only-child)::after {
+        content: '';
+        position: absolute;
+        left: -10px;
+        top: 50%;
+        bottom: 0;
+        width: 1px;
+        background-color: $br-grey-text;
+      }
+
+      // hide vertical for first child when only two children
+      &:first-child:nth-last-child(2)::after {
+        display: none;
+      }
+
+      // non first children - vertical going up
+      &:not(:first-child)::after {
+        content: '';
+        position: absolute;
+        left: -10px;
+        top: 0;
+        bottom: 50%;
+        width: 1px;
+        background-color: $br-grey-text;
+      }
+
+      // non last children - extend vertical to bottom
+      &:not(:nth-last-child(2)):not(:first-child)::after {
+        bottom: 0;
       }
     }
   }
