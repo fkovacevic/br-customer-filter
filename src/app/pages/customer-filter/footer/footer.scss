@@ -1,0 +1,6 @@
+@use 'variables' as *;
+
+.footer {
+  display: flex;
+  padding-top: $spacing-m;
+}

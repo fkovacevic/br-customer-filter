@@ -1,0 +1,12 @@
+@use 'variables' as *;
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: $spacing-l 0;
+
+  & > b {
+    text-transform: uppercase;
+    font-size: $font-size-m;
+  }
+}
