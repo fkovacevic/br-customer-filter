@@ -1,0 +1,19 @@
+<div class="event-attribute">
+  <app-dropdown
+    placeholder="Select property..."
+    [options]="propertyOptions"
+    [value]="attribute.property"
+    (onSelect)="onPropertyChange($event)"
+  />
+  @if (attribute.property) {
+    <app-multi-picker-dropdown
+      [groups]="comparatorGroups"
+      [selectedGroupId]="selectedGroupId()"
+      [selectedOption]="attribute.comparator"
+      (selectedGroupIdChange)="selectedGroupId.set($event)"
+      (selectedOptionChange)="onComparatorChange($event)"
+    />
+    <app-attribute-value-input [attribute]="attribute" (onValueChange)="onValueChange($event)" />
+    <app-button iconName="heroXMark" (onClick)="deleteEventAttribute()" type="icon" />
+  }
+</div>
